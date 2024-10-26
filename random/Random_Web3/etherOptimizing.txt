@@ -1,0 +1,32 @@
+Q what is transaction fee calculation?
+
+Ans:transaction fee=(gas consumed * gas price) *(ether price / 10^9)
+
+
+Q which price to change in the transaction fee calculation?
+Ans:gas consumed control save your cost ;
+
+
+
+
+
+
+/// gas price 0----------------->
+However, the gas price isn't provided here, so let's assume it's given or that you're using the current gas price. Here's the calculation formula:
+
+Gas Used (in units of gas) × Gas Price (in wei) = Cost (in wei)
+Since you haven't provided the gas price, I'll outline the calculations based on the formulas:
+
+Transaction Cost (in wei) = Transaction Cost (in gas) × Gas Price (in wei)
+Execution Cost (in wei) = Execution Cost (in gas) × Gas Price (in wei)
+
+
+gas price  (_) --------------------->>
+
+
+Gas Price: The gas price is typically measured in gwei (1 gwei = 10^9 wei), but for calculations, we convert everything to wei (1 ether = 10^18 wei).
+
+Calculation Formula:
+
+Cost in wei = Gas Used × Gas Price
+Cost in Ether = Cost in wei / 10^18

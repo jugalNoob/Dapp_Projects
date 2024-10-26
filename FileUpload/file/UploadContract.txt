@@ -1,0 +1,142 @@
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+
+// contract XXX {
+
+//     struct Sub {
+//         string name;
+//         address add;
+//     }
+
+//     mapping(address => Sub[]) private Subs;
+//     address[] private addresses;
+//     function addSub(string memory _name, address _add) public {
+//         require(!isAddressInArray(_add), "Address is already in the array.");
+//         require(addresses.length < 2, "Only two addresses can be added.");
+
+//         Sub memory newSub = Sub(_name, _add);
+//         Subs[msg.sender].push(newSub);
+
+//         addresses.push(msg.sender);  // Add the address after checking the constraints
+//     }
+
+//     function isAddressInArray(address _checkAddress) private view returns (bool) {
+//         for (uint256 i = 0; i < addresses.length; i++) {
+//             if (addresses[i] == _checkAddress) {
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
+
+//     function checkAll(address _add) public view returns (Sub[] memory) {
+//         return Subs[_add];
+//     }
+// }
+
+
+// ------------------------------- /// ------------------------------------ ,,,,,,,,,,,,,,,,, 
+
+// contract XXnx{
+
+
+//  struct Upload {
+//         string image;
+//         address add;
+ 
+//     }
+
+//      mapping(address => mapping(uint => Upload[])) private upload;
+
+//     // mapping (uint => Upload[])public  upload;
+//     uint private nump;
+
+//     function uploadImage(string memory _img, address _add,  uint _nums) public {
+//         Upload memory up = Upload(_img, _add );
+//         upload[msg.sender][_nums].push(up);
+//         nump++;
+//     }
+
+// function  checkNum()public view  returns(uint){
+//     return  nump;
+// }
+
+
+// function checkUp(address _add , uint _id) public view returns (Upload[] memory) {
+//     return upload[_add][_id];
+// }
+
+
+// function NumberSall(address _add , uint _id)public view  returns(Upload[] memory){
+//     return checkUp(_add, _id);
+// }
+// }
+
+
+
+
+pragma solidity ^0.8.0;
+
+contract XXnx {
+    struct Upload {
+        string image;
+        address add;
+    }
+
+mapping (address => Upload[])private upload;
+    // mapping(address => mapping(uint => Upload[])) private upload;
+    mapping(address => uint) private userUploadCount; // Tracking number of uploads per user
+
+    uint private nump;
+
+    // Event to log image uploads
+
+    function uploadImage(string memory _img, address _add) public {
+        Upload memory up = Upload(_img, _add);
+upload[msg.sender].push(up);
+
+        // upload[msg.sender][_nums].push(up);
+      
+        nump++;
+        userUploadCount[msg.sender]++; // Increment user's upload count
+
+
+    }
+
+    function checkNum() public view returns (uint) {
+        return nump;
+    }
+
+    function checkUp() public view returns (Upload[] memory) {
+        return upload[msg.sender];
+    }
+
+
+    // Function to get the total number of uploads for a specific user
+    function getUserUploadCount(address _user) public view returns (uint) {
+        return userUploadCount[_user];
+    }
+
+    // Function to delete an upload
+    // function deleteUpload(uint _nums, uint _index) public {
+    //     require(_index < upload[msg.sender][_nums].length, "Index out of bounds");
+
+    //     // Shift elements to the left to overwrite the deleted element
+    //     for (uint i = _index; i < upload[msg.sender][_nums].length - 1; i++) {
+    //         upload[msg.sender][_nums][i] = upload[msg.sender][_nums][i + 1];
+    //     }
+
+    //     // Remove the last element
+    //     upload[msg.sender][_nums].pop();
+    //     nump--;
+    //     userUploadCount[msg.sender]--; // Decrement user's upload count
+    // }
+
+
+    
+    // function NumberSall(address _add, uint _id) public view returns (Upload[] memory) {
+    //     return checkUp(_add, _id);
+    // }
+}

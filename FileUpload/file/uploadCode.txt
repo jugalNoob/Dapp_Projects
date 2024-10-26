@@ -1,0 +1,41 @@
+  const { provider, signer, address } = useContext(MyContext);
+    const [file, setFile] = useState(null);
+
+
+    const [img , setImg]=useState()
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const metadata = JSON.stringify({
+          name: "File name",
+        });
+        formData.append("pinataMetadata", metadata);
+  
+        const options = JSON.stringify({
+          cidVersion: 0,
+        });
+        formData.append("pinataOptions", options);
+      
+        const res=await axios({
+          method: 'POST',
+          url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+          data: formData,
+          headers: {
+          
+            'pinata_api_key': "11547dbbf5473e25d412",
+            'pinata_secret_api_key': "d061e811156d19dc8beb5d81d444e40d74c58a8ca0d5f4054f3a3ca24a9d2be8",
+            "Content-Type": "multipart/form-data",
+     
+          },
+        })
+        const ImgHash = `https://gateway.pinata.cloud/ipfs/${res.data.IpfsHash}`;
+
+        setImg(ImgHash)
+      console.log(ImgHash)
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
